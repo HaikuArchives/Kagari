@@ -14,10 +14,10 @@ YSlider::YSlider(BRect frame, const char *name,
 		 uint32 flags)
   : BSlider(frame, name,
 	    label,
-	    message, 
+	    message,
 	    minValue, maxValue,
 	    thumbType,
-	    resizingMode, 
+	    resizingMode,
 	    flags)
   , mDefaultFrame(frame)
 {
@@ -25,7 +25,7 @@ YSlider::YSlider(BRect frame, const char *name,
 
 #include <iostream>
 
-void 
+void
 YSlider::GetPreferredSize(float *width, float *height)
 {
   BSlider::GetPreferredSize(width, height);
@@ -34,7 +34,7 @@ YSlider::GetPreferredSize(float *width, float *height)
 
   //  *width = mDefaultFrame.Width();
   //  *width = this->Bounds().Width());
-  *height = max(*height, this->Bounds().Height() - 1);
+  *height = std::max(*height, this->Bounds().Height() - 1);
 }
 
 void

@@ -9,7 +9,7 @@
 #include <set>
 
 
-class YMessageDeliver 
+class YMessageDeliver
 {
 public:
   void AddTarget(BMessenger target);
@@ -17,7 +17,7 @@ public:
   void SendMessage(BMessage *msg);
 
 private:
-  set <BMessenger> mTarget;
+  std::set <BMessenger> mTarget;
 };
 
 #endif

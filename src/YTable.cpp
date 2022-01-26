@@ -3,9 +3,11 @@
 
 #include "YTable.h"
 
+using std::max;
+
 
 YTable::YTable(const char *name, int32 column, int32 raw)
-  : BView(BRect(0, 0, 0, 0), name, 
+  : BView(BRect(0, 0, 0, 0), name,
 	  B_FOLLOW_NONE, B_WILL_DRAW /*| B_FRAME_EVENTS*/)
   , mColumn(column)
   , mRaw(raw)
@@ -86,7 +88,7 @@ YTable::CalcVariable(void)
   for (i = 0; i < mColumn; i++)
     if (variable_column[i])
       mVariableColumnIndex.push_back(i);
-  
+
   if (mVariableColumnIndex.size() == 0)
     for (i = 0; i < mColumn; i++)
       mVariableColumnIndex.push_back(i);
@@ -94,7 +96,7 @@ YTable::CalcVariable(void)
   for (i = 0; i < mRaw; i++)
     if (variable_raw[i])
       mVariableRawIndex.push_back(i);
-  
+
   if (mVariableRawIndex.size() == 0)
     for (i = 0; i < mRaw; i++)
       mVariableRawIndex.push_back(i);
@@ -112,7 +114,7 @@ YTable::GetPreferredSize(float *width, float *height)
 
   for (i = 0; i < mRaw; i++)
     mRawHeight[i] = 0;
-  
+
   for (i = 0; i < mColumn; i++)
     for (j = 0; j < mRaw; j++)
       {
@@ -143,17 +145,17 @@ YTable::FrameResized(float given_width, float given_height)
   int32 i, j, size;
 
   this->CalcVariable();
-  
+
   w = (int32)(given_width - mPreferredWidth);
   size = mVariableColumnIndex.size();
   for (i = 0; i < size; i++)
-    mColumnWidth[mVariableColumnIndex[i]] += 
+    mColumnWidth[mVariableColumnIndex[i]] +=
       w * (i + 1) / size - w * i / size;
 
   w = (int32)(given_height - mPreferredHeight);
   size = mVariableRawIndex.size();
   for (i = 0; i < size; i++)
-    mRawHeight[mVariableRawIndex[i]] += 
+    mRawHeight[mVariableRawIndex[i]] +=
       w * (i + 1) / size - w * i / size;
 
   for (i = 0, sum = mMergin.left; i < mColumn; i++)

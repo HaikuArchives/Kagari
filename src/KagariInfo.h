@@ -39,14 +39,14 @@ struct AppInfo
   BBitmap mLargeIcon, mMiniIcon;
   entry_ref mRef;
   bool mIsActive;
-  deque<int32> mLaunchedTime;
+  std::deque<int32> mLaunchedTime;
 };
 
 
 //======================================================================
 // apprication information watcher
 
-typedef map<BString, AppInfo> app_map;
+typedef std::map<BString, AppInfo> app_map;
 
 class KagariInfo : public BLooper
 {
@@ -59,7 +59,7 @@ public:
   KagariInfo(const char *about);
   virtual ~KagariInfo(void);
 
-  void GetAppInfo(vector<AppRef> *info, int32 sort_option = K_SORT_WITH_NAME);
+  void GetAppInfo(std::vector<AppRef> *info, int32 sort_option = K_SORT_WITH_NAME);
   void Refresh(void);
 
   void StartWatching(BMessenger target)

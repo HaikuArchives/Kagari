@@ -7,6 +7,7 @@
 #include <Application.h>
 #include <Bitmap.h>
 #include <String.h>
+#include <Mime.h>
 #include "BubbleHelper.h"
 
 class YApplication : public BApplication

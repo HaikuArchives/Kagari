@@ -4,6 +4,8 @@
 #include "YLayoutUtils.h"
 #include "YTabView.h"
 
+using std::max;
+
 //----------------------------------------------------------------------
 //
 YTab::YTab(YTabView *owner, BView *tabView)
@@ -62,7 +64,7 @@ void
 YTabView::ResizeChild(int32 n, float width, float height)
 {
   height -= this->TabHeight();
-  
+
   YLayoutUtils::ZoomToFit(mChilds[n].view,
 			  BRect(mMergin.left - 1, // <- patch
 				mMergin.top - 1,
@@ -70,7 +72,7 @@ YTabView::ResizeChild(int32 n, float width, float height)
 				height - mMergin.bottom - 1),
 			  mChilds[n].width,
 			  mChilds[n].height);
-				
+
 }
 
 
@@ -93,7 +95,7 @@ YTabView::GetPreferredSize(float *width, float *height)
   *height = max_height + mMergin.top + mMergin.bottom + this->TabHeight();
 
   *width = max(*width,
-	       this->TabFrame(0).left 
+	       this->TabFrame(0).left
 	       + this->TabFrame(mChilds.size() - 1).right);
 }
 

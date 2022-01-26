@@ -34,7 +34,7 @@ YDialog::Parse(istream &in,
 
   mCommand = buf;
 
-  cerr << "parsing " << buf << ".\n";
+  std::cerr << "parsing " << buf << ".\n";
 
   //----------------------------------------------------------------------
   // adaptor
@@ -44,7 +44,7 @@ YDialog::Parse(istream &in,
       option opt;
 
       this->ParseOption(in, term, opt,
-			"*name", 
+			"*name",
 			"",
 			Y_VIEW | Y_ALIGN);
 
@@ -56,7 +56,7 @@ YDialog::Parse(istream &in,
 
       mAdaptors[opt["name"].str] = adaptor;
     }
-      
+
 
   //------------------------------------------------------------
   // radio button
@@ -71,7 +71,7 @@ YDialog::Parse(istream &in,
 			"",
 			Y_VIEW | Y_ALIGN);
 
-      view = button = 
+      view = button =
 	new BRadioButton(BRect(0, 0, 0, 0),
 			 opt["tablabel"].str.c_str(),
 			 opt["label"].str.c_str(),
@@ -96,7 +96,7 @@ YDialog::Parse(istream &in,
 			"value 0",
 			Y_VIEW | Y_ALIGN);
 
-      view = cbox = 
+      view = cbox =
 	new BCheckBox(BRect(0, 0, 0, 0),
 		      opt["tablabel"].str.c_str(),
 		      opt["label"].str.c_str(),
@@ -131,8 +131,8 @@ YDialog::Parse(istream &in,
 
       str->SetResizingMode(this->Align(opt));
     }
-  
-  
+
+
   //------------------------------------------------------------
   // slider
 
@@ -146,7 +146,7 @@ YDialog::Parse(istream &in,
 			Y_VIEW | Y_ALIGN);
 
       view = slider =
-	new YSlider(BRect(0, 0, opt["width"].num, opt["height"].num), 
+	new YSlider(BRect(0, 0, opt["width"].num, opt["height"].num),
 		    opt["tablabel"].str.c_str(),
 		    opt["label"].str.c_str(),
 		    this->ModificationMessage(opt["name"].str),
@@ -172,13 +172,13 @@ YDialog::Parse(istream &in,
     {
       BButton *button;
 
-      this->ParseOption(in, term, opt, 
+      this->ParseOption(in, term, opt,
 			"*label *name",
 			"",
 			Y_VIEW | Y_ALIGN);
 
-      view = button = 
-	new BButton(BRect(0, 0, 0, 0), 
+      view = button =
+	new BButton(BRect(0, 0, 0, 0),
 		    opt["tablabel"].str.c_str(),
 		    opt["label"].str.c_str(),
 		    this->ModificationMessage(opt["name"].str),
@@ -208,7 +208,7 @@ YDialog::Parse(istream &in,
 	this->Error("is able to have only 1 child");
 
       border_style border = B_NO_BORDER;
-      
+
       if (opt["style"].str == "plain")
 	border = B_PLAIN_BORDER;
       else if (opt["style"].str == "fancy")
@@ -230,7 +230,7 @@ YDialog::Parse(istream &in,
 
   //------------------------------------------------------------
   // table
-  
+
   else if (buf == "table")
     {
       YTable *table;
@@ -248,7 +248,7 @@ YDialog::Parse(istream &in,
       if (childs.size() != num)
 	this->Error("invalid argument num");
 
-      view = table = 
+      view = table =
 	new YTable(opt["tablabel"].str.c_str(),
 		   opt["width"].num, opt["height"].num);
 
@@ -287,7 +287,7 @@ YDialog::Parse(istream &in,
       else
 	this->Error("no such orientation");
 
-      view = table = 
+      view = table =
 	new YTable(opt["tablabel"].str.c_str(),
 		   width, height);
 
@@ -350,7 +350,7 @@ YDialog::Parse(istream &in,
       if (align != B_FOLLOW_NONE)
 	view->SetResizingMode(align);
     }
-  
+
   else
     {
       this->Error("no such command");

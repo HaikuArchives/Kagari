@@ -1,6 +1,7 @@
 //
 
 #include <KernelKit.h>
+#include <Window.h>
 #include "YApplication.h"
 #include "YDragger.h"
 #include <iostream>
@@ -9,7 +10,7 @@ YDragger::YDragger(BRect rect,
 		   const char *name,
 		   uint32 resizingMode,
 		   uint32 flags,
-		   
+
 		   BMessenger target,
 		   uint32 command,
 		   coordinate coord)
@@ -38,7 +39,7 @@ YDragger::Send(BPoint point, uint32 status)
     default:
     case Y_VIEW_COORDINATE:
       break;
-      
+
     case Y_PARENT_COORDINATE:
       point = this->ConvertToParent(point);
       break;
@@ -47,7 +48,7 @@ YDragger::Send(BPoint point, uint32 status)
       point = this->ConvertToScreen(point);
       point = this->Window()->ConvertFromScreen(point);
       break;
-      
+
     case Y_SCREEN_COORDINATE:
       point = this->ConvertToScreen(point);
       break;
@@ -86,7 +87,7 @@ YDragger::MouseMoved(BPoint point, uint32 transit, const BMessage *message)
   this->GetMouse(&point, &buttons, false);
   this->Send(point, Y_DRAG_CONTINUE);
 }
-  
+
 void
 YDragger::MouseUp(BPoint point)
 {
@@ -96,4 +97,4 @@ YDragger::MouseUp(BPoint point)
   mIsDragging = false;
   this->Send(point, Y_DRAG_END);
 }
-  
+

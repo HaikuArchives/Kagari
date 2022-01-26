@@ -7,12 +7,18 @@
 #include <Window.h>
 #include <Control.h>
 #include <TabView.h>
+#include <RadioButton.h>
 #include <iostream>
 #include <string>
 #include <map>
 #include <vector>
 #include <string>
 #include "YTemplates.h"
+
+using std::istream;
+using std::string;
+using std::map;
+using std::vector;
 
 class YAdaptor;
 
@@ -58,7 +64,7 @@ protected:
   virtual void ValueModified(const char *name, int32 value);
 
 private:
-  enum 
+  enum
   {
     Y_DIALOG_READY_TO_RUN = 'Ydrr',
     Y_DIALOG_MODIFIED = 'Ydmd',

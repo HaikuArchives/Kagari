@@ -7,6 +7,8 @@
 #include <vector>
 #include "YLayoutUtils.h"
 
+using std::vector;
+
 class YTable : public BView
 {
 public:
@@ -29,7 +31,7 @@ public:
 
 protected:
   virtual void FrameResized(float width, float height);
- 
+
 private:
   void CalcVariable(void);
 

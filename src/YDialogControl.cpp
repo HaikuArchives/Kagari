@@ -40,7 +40,7 @@ YDialog::YDialog(const char *script,
 	    flags | B_ASYNCHRONOUS_CONTROLS,
 	    workspace)
 {
-  istrstream in(script);
+  std::istrstream in(script);
   this->Init(in);
 }
 
@@ -223,7 +223,7 @@ YDialog::Value(const char *name)
 
   if (mControls.count(name))
     return mControls[name]->Value();
-  
+
   this->Error("no such name of controls.\n");
   return 0;
 }
@@ -242,7 +242,7 @@ YDialog::AdaptView(const char *name, BView *view)
 void
 YDialog::Error(const char *msg)
 {
-  cerr << "YDialog: " << mCommand << ": "
+  std::cerr << "YDialog: " << mCommand << ": "
        << msg << " in line " << mLine << ".\n";
   exit (1);
 }
@@ -251,7 +251,7 @@ YDialog::Error(const char *msg)
 void
 YDialog::RangeError(string msg, string command, int32 value)
 {
-  ostrstream buf;
+  std::ostrstream buf;
 
   buf << msg << ": " << value  <<" of " << command << ".";
   this->Error(buf.str());

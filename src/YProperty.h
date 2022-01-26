@@ -10,6 +10,8 @@
 #include <string>
 #include <map>
 
+using namespace std;
+
 const static uint32 Y_PROPERTY_MODIFIED = 'Ypmd';
 // 'name', B_STRING_TYPE, property name
 
@@ -37,13 +39,13 @@ public:
   void StartWatching(const char *name,
 		     const BHandler *handler,
 		     const BLooper *looper=NULL);
-  void StartWatching(const char *name, 
+  void StartWatching(const char *name,
 		     BMessenger target);
 
   void StopWatching(const char *name,
 		    const BHandler *handler,
 		    const BLooper *looper=NULL);
-  void StopWatching(const char *name, 
+  void StopWatching(const char *name,
 		    BMessenger target);
 
   void SetInt32(const char *name, int32 value, const BHandler *modifier = NULL);

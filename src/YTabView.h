@@ -1,5 +1,5 @@
 // Hey Emacs, this file is -*- c++ -*-
-   
+
 #ifndef Y_TABVIEW_H
 #define Y_TABVIEW_H
 
@@ -27,9 +27,9 @@ public:
 	   button_width width = B_WIDTH_AS_USUAL,
 	   uint32 resizingMode = B_FOLLOW_ALL,
 	   uint32 flags = B_FULL_UPDATE_ON_RESIZE | B_WILL_DRAW | B_NAVIGABLE_JUMP | B_FRAME_EVENTS | B_NAVIGABLE);
-  
+
   void SetMergin(BRect mergin);
-  
+
   virtual void AddTab(BView *target, BTab *tab = NULL);
 
   virtual void GetPreferredSize(float *width, float *height);
@@ -51,7 +51,7 @@ private:
     };
 
   BRect mMergin;
-  vector<child_status> mChilds;
+  std::vector<child_status> mChilds;
 };
 
 #endif

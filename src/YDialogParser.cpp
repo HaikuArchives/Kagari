@@ -14,6 +14,8 @@
 #include "YLayoutUtils.h"
 #include "YDialog.h"
 
+using std::cerr;
+
 
 //----------------------------------------------------------------------
 static const char *sTerms = ",;{}";
@@ -47,7 +49,7 @@ YDialog::Read(istream &in, string &s)
 
   if (in.eof())
     {
-      in.setstate(ios::failbit);
+      in.setstate(std::ios::failbit);
       return in;
     }
 
@@ -58,7 +60,7 @@ YDialog::Read(istream &in, string &s)
 
       if (ch == EOF)
 	{
-	  in.setstate(ios::failbit);
+	  in.setstate(std::ios::failbit);
 	  return in;
 	}
 
@@ -85,7 +87,7 @@ YDialog::Read(istream &in, string &s)
 	  {
 	    if (ch == EOF)
 	      {
-		in.clear(ios::eofbit);
+		in.clear(std::ios::eofbit);
 		return in;
 	      }
 	    if (isspace(ch))
@@ -103,9 +105,9 @@ YDialog::Read(istream &in, string &s)
 		state = QUOT;
 		break;
 	      }
-	    
+
 	    s += ch;
-	    
+
 	    break;
 	  }
 
@@ -118,9 +120,9 @@ YDialog::Read(istream &in, string &s)
 		state = NONE;
 		break;
 	      }
-	    
+
 	    s += ch;
-	    
+
 	    break;
 	  }
 	}
@@ -144,12 +146,12 @@ YDialog::Align(option &opt)
 	return B_FOLLOW_H_CENTER | B_FOLLOW_V_CENTER;
       else
 	{
-	  ostrstream s;
+	  std::ostrstream s;
 	  s << "invalid align value '" << opt["align"].str << "'";
 	  this->Error(s.str());
 	}
     }
-  
+
   if (!opt.count("halign"))
     align |= B_FOLLOW_NONE;
   else if (opt["halign"].str == "left")
@@ -162,7 +164,7 @@ YDialog::Align(option &opt)
     align |= B_FOLLOW_LEFT_RIGHT;
   else
     {
-      ostrstream s;
+      std::ostrstream s;
       s << "invalid halign value '" << opt["halign"].str << "'";
       this->Error(s.str());
     }
@@ -179,7 +181,7 @@ YDialog::Align(option &opt)
     align |= B_FOLLOW_TOP_BOTTOM;
   else
     {
-      ostrstream s;
+      std::ostrstream s;
       s << "invalid valign value '" << opt["valign"].str << "'";
       this->Error(s.str());
     }
@@ -192,7 +194,7 @@ BPoint
 YDialog::Padding(option &opt)
 {
   BPoint padding(0, 0);
-  
+
   if (opt.count("padding"))
     padding.x = padding.y = opt["padding"].num;
   if (opt.count("wpadding"))
@@ -238,7 +240,7 @@ YDialog::ParseOption(istream &in,
 		     const char *option_init,
 		     int32 flags)
 {
-  set<string> command, command_needed;
+  std::set<string> command, command_needed;
   string buf0, buf1;
 
   // clear option.
@@ -276,7 +278,7 @@ YDialog::ParseOption(istream &in,
     }
 
   // read in option rule.
-  istrstream in0(option_rule);
+  std::istrstream in0(option_rule);
 
   while (this->Read(in0, buf0))
     {
@@ -288,9 +290,9 @@ YDialog::ParseOption(istream &in,
       else
 	command.insert(buf0);
     }
-  
+
   // read in default value;
-  istrstream in1(option_init);
+  std::istrstream in1(option_init);
 
   while (this->Read(this->Read(in1, buf0), buf1))
     {
@@ -314,7 +316,7 @@ YDialog::ParseOption(istream &in,
 
       if (buf0[0] != '-')
 	{
-	  ostrstream s;
+	  std::ostrstream s;
 	  s << "option required '" << buf0 << "'";
 	  this->Error(s.str());
 	}
@@ -337,7 +339,7 @@ YDialog::ParseOption(istream &in,
 	this->Error();
       }
 
-  for (set<string>::iterator i = command_needed.begin();
+  for (std::set<string>::iterator i = command_needed.begin();
        i != command_needed.end(); i++)
     {
       if (opt.count(*i) == 0)
@@ -363,7 +365,7 @@ YDialog::ParseBlock(istream &in,
     this->Error();
 
   cerr << "begin block.\n";
-  
+
   do
     {
       view = this->Parse(in, term);
@@ -379,7 +381,7 @@ YDialog::ParseBlock(istream &in,
     this->Error();
 
   cerr << "end block.\n";
-  
+
   this->Read(in, buf);
   if (!this->IsTerm(buf))
     this->Error("not terminated");

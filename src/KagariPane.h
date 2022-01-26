@@ -30,8 +30,8 @@ private:
   void Redraw(void);
   void Shrink(BPoint point);
 
-  vector <AppRef> mAppInfo;
-  vector <BView*> mAppButtons;
+  std::vector <AppRef> mAppInfo;
+  std::vector <BView*> mAppButtons;
   BBox *mFrame;
   YDragger *mMover, *mDragger, *mPreferer;
   int32 mPadding;

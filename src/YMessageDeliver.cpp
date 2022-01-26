@@ -25,7 +25,7 @@ YMessageDeliver::RemoveTarget(BMessenger target)
 void
 YMessageDeliver::SendMessage(BMessage *msg)
 {
-  set <BMessenger>::iterator i;
+  std::set <BMessenger>::iterator i;
 
   for (i = mTarget.begin(); i != mTarget.end(); i++)
     (*i).SendMessage(msg);
